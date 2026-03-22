@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Slot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page">
+        <div class="form-card">
+            <div class="top-bar">
+                <h2>Book Your Slot</h2>
+                <a href="{{ url_for('available_slots') }}" class="btn btn-light">Back</a>
+            </div>
+
+            
+
+            <div class="slot-details">
+                <p><strong>Selected Slot:</strong></p>
+                <div class="selected-slot">{{ slot.slot_time }}</div>
+            </div>
+
+            <form method="POST" class="booking-form">
+                <label>Your Name</label>
+                <input type="text" name="name" required>
+
+                <button type="submit" class="btn btn-primary full-width">
+                    Confirm Booking
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

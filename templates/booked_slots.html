@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booked Slots</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page">
+        <div class="container-card">
+            <div class="top-bar">
+                <h2>Booked Slots</h2>
+                <a href="{{ url_for('home') }}" class="btn btn-light">Home</a>
+            </div>
+
+            {% if slots %}
+                <div class="slot-list">
+                    {% for slot in slots %}
+                        <div class="slot-card booked">
+                            <div>
+                                <h3>{{ slot.slot_time }}</h3>
+                                <p>Booked by <strong>{{ slot.booked_by }}</strong></p>
+                            </div>
+
+                            <!-- ✅ CANCEL BUTTON -->
+                            <form action="{{ url_for('cancel_slot', slot_id=slot.id) }}" method="POST">
+                                <button type="submit" class="btn btn-danger">
+                                    Cancel
+                                </button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No slots booked yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

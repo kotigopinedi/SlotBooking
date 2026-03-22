@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Slots</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page">
+        <div class="container-card">
+            <div class="top-bar">
+                <h2>Available Slots</h2>
+                <a href="{{ url_for('home') }}" class="btn btn-light">Home</a>
+            </div>
+
+            {% if slots %}
+                <div class="slot-list">
+                    {% for slot in slots %}
+                        <div class="slot-card">
+                            <div>
+                                <h3>{{ slot.slot_time }}</h3>
+                                <p>Available for booking</p>
+                            </div>
+
+                            <a href="{{ url_for('book_slot', slot_id=slot.id) }}" class="btn btn-primary">
+                                Book Slot
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>No available slots right now.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
