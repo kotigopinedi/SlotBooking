@@ -118,6 +118,28 @@ def booked_slots():
         slots = []
         for row in rows:
             slots.append({
+                "id": row[0],  # ✅ ADD THIS LINE
+                "slot_time": row[1],
+                "booked_by": row[3] if row[3] else "Unknown"
+            })
+
+        cursor.close()
+        db.close()
+
+        return render_template('booked_slots.html', slots=slots)
+
+    except Exception as e:
+        return str(e)
+    try:
+        db = get_db_connection()
+        cursor = db.cursor()
+
+        cursor.execute("SELECT * FROM slots WHERE is_booked = TRUE ORDER BY slot_time ASC")
+        rows = cursor.fetchall()
+
+        slots = []
+        for row in rows:
+            slots.append({
                 "id": row[0],
                 "slot_time": row[1],
                 "booked_by": row[3] if row[3] else "Unknown"
