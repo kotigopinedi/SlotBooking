@@ -108,6 +108,28 @@ def book_slot(slot_id):
 # ---------------- BOOKED SLOTS ----------------
 @app.route('/booked')
 def booked_slots():
+    try:
+        db = get_db_connection()
+        cursor = db.cursor()
+
+        cursor.execute("SELECT * FROM slots WHERE is_booked = TRUE ORDER BY slot_time ASC")
+        rows = cursor.fetchall()
+
+        slots = []
+        for row in rows:
+            slots.append({
+                "id": row[0],
+                "slot_time": row[1],
+                "booked_by": row[3] if row[3] else "Unknown"
+            })
+
+        cursor.close()
+        db.close()
+
+        return render_template('booked_slots.html', slots=slots)
+
+    except Exception as e:
+        return str(e)   # 🔥 show real error
     db = get_db_connection()
     cursor = db.cursor()
 
